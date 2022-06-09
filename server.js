@@ -1,3 +1,4 @@
+const { request } = require('express');
 const express = require('express');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
@@ -21,6 +22,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
   db.collection('guitarPlayers')
     .find()
+    .sort({ likes: -1 })
     .toArray()
     .then((data) => {
       res.render('index.ejs', { info: data });
@@ -32,11 +34,37 @@ app.post('/addGuitarPlayer', (req, res) => {
     .insertOne({
       playerName: req.body.playerName,
       playerGuitar: req.body.playerGuitar,
+      likes: 0,
     })
     .then((result) => {
       console.log('Player Added');
       res.redirect('/');
       console.log(result);
+    })
+    .catch((error) => console.error(error));
+});
+
+app.put('/addOneLike', (req, res) => {
+  db.collection('guitarPlayers')
+    .updateOne(
+      {
+        playerName: req.body.playerNameS,
+        playerGuitar: req.body.playerGuitarS,
+        likes: req.body.likesS,
+      },
+      {
+        $set: {
+          likes: req.body.likesS + 1,
+        },
+      },
+      {
+        sort: { _id: -1 },
+        upsert: true,
+      }
+    )
+    .then((result) => {
+      console.log('Added one like');
+      res.json('Like Added');
     })
     .catch((error) => console.error(error));
 });
