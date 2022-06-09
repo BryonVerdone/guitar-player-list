@@ -3,12 +3,14 @@ const app = express();
 const MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 const PORT = 8000;
-
-let dbConnectionStr = process.env.DB_STRING;
+let db,
+  dbConnectionStr = process.env.DB_STRING,
+  dbName = 'guitar-players';
 
 MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true }).then(
   (client) => {
-    console.log('Connected to Database');
+    console.log(`Connected to ${dbName} Database`);
+    db = client.db(dbName);
   }
 );
 app.set('view engine', 'ejs');
