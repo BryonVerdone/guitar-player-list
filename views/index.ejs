@@ -12,6 +12,12 @@
     <title>Guitar Players</title>
   </head>
   <body>
+    <h2>Add A Guitar Player</h2>
+    <form action="/addGuitarPlayer" method="POST">
+      <input type="text" placeholder="Player Name" name="playerName" />
+      <input type="text" placeholder="Player Guitar" name="playerGuitar" />
+      <input type="submit" />
+    </form>
     <h1>Current Guitar Players</h1>
     <ul class="players">
       <% for(let i=0; i < info.length; i++) {%>
@@ -20,16 +26,11 @@
         <span><%= info[i].playerGuitar %></span>
         <span><%= info[i].likes %></span>
         <span class="fa fa-thumbs-up"></span>
-        <!-- <span class="fa fa-trash"></span> -->
+        <span class="fa fa-trash"></span>
       </li>
       <% } %>
     </ul>
-    <h2>Add A Guitar Player</h2>
-    <form action="/addGuitarPlayer" method="POST">
-      <input type="text" placeholder="Player Name" name="playerName" />
-      <input type="text" placeholder="Player Guitar" name="playerGuitar" />
-      <input type="submit" />
-    </form>
+
     <script src="js/main.js"></script>
   </body>
 </html>

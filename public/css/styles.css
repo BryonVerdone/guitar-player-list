@@ -10,3 +10,12 @@ body {
 h1 {
   color: blue;
 }
+.player {
+  padding: 15px;
+}
+form {
+  margin-bottom: 2rem;
+}
+ul {
+  list-style: none;
+}

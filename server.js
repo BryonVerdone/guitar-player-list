@@ -69,6 +69,18 @@ app.put('/addOneLike', (req, res) => {
     .catch((error) => console.error(error));
 });
 
+app.delete('/deleteGuitarPlayer', (req, res) => {
+  db.collection('guitarPlayers')
+    .deleteOne({
+      playerName: req.body.playerNameS,
+    })
+    .then((result) => {
+      console.log('Player Deleted');
+      res.json('Player Deleted');
+    })
+    .catch((err) => console.error(err));
+});
+
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);
 });
